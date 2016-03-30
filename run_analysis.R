@@ -124,26 +124,32 @@ OneDataSet <- OneDataSet[order(OneDataSet[,1], OneDataSet[,2]),]
 
 write.table(OneDataSet,"FullTidyData.txt",row.names = FALSE)
 
+#
+# Now that we have the single tidy set, we group and get averages for each variable
+#
 
+grouped <- group_by(OneDataSet, Subject, Activity)
+TidyData <- summarise_each(grouped, funs(mean))
 
+#
+# And write it. 
+#
+
+write.table(TidyData,"TidyData.txt", row.names = FALSE)
+
+#
+# This is the end!  
+# -------------------------------------------------------
 
 #
 # Below this line is for debug only.
 #
- 
-
-
 # write.csv(X_all1, "X_all1.csv")
 # write.csv(X_all2, "X_all2.csv")
 
 #write.csv(X_all, "X_all.csv")
 #write.csv(test_cols,"test_cols.csv")
 write.csv(OneDataSet, "OneDataSet.csv", row.names = FALSE)
-
-#
-# Now that we have the single tidy set, we group and get averages for each variable
-#
-
-
+write.csv(TidyData, "TidayData.csv", row.names = FALSE)
 
 }
